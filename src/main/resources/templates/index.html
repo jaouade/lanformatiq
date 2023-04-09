@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo application</title>
+    <link type="text/css" th:src="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h1 class="title">Marhba bek 3ndna f l'application TODO</h1>
+
+    <a sec:authorize="!isAuthenticated()" th:href="@{/se-connecter}">Tconnecta mn hna</a>
+    <a sec:authorize="hasRole('USER_3ADI')" th:href="@{/todo}">Clicker hna bach tsayb todo</a>
+    <a sec:authorize="hasAnyRole('USER_ADMIN', 'USER_SUPER_ADMIN')" th:href="@{/admin}">Clicker hna bach dkhol page administration</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo application</title>
+    <link type="text/css" th:src="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+</head>
+<body>
+<!--
+ila bgheyti tkhdem b validation manuell bdel l'url dyal action b /todo/create/manual/validation
+-->
+<form th:action="@{/todo/create}" method="post" th:object="${todoDTO}">
+    <div class="container">
+        <h1>
+            marhba b sidi <span class="text-success" th:text="${user}"></span> Khroj mn hna -> <a th:href="@{/logout}">Log out</a>
+        </h1>
+        <hr>
+        <hr>
+        <div class="row">
+            <h1>
+                Mn hna t9der tseyd les TODO dyalk
+            </h1>
+        </div>
+        <div class="alert alert-danger" th:if="${notUniqueMessage!=null}"  th:text="${notUniqueMessage}">
+
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="todo-text">Kteb hna dekchi li baghi diir</label>
+                    <input  th:field="*{task}" type="text" th:class="${'form-control ' + (#fields.hasErrors('task') || ( validationErrors != null && !validationErrors.isEmpty() ) ? 'is-invalid':'' )}" id="todo-text" placeholder="Kteb hna dekchi li baghi">
+                    <small class="text-danger" th:if="${#fields.hasErrors('task')}" th:errors="*{task}">
+
+                    </small>
+                    <small class="text-danger" th:if="${ validationErrors != null && !validationErrors.isEmpty() }" th:each="err: ${validationErrors}" th:text="${err}">
+
+                    </small>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="completed">Wach salitiha?</label>
+                    <input th:field="*{finished}" type="checkbox" class="form-control" id="completed" placeholder="Wach salitiha?">
+                </div>
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-success">Zedha</button>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <ul class="list-group">
+                    <li th:style="${var.finished ? 'background-color: bisque;' : ''}" th:each="var,iterator : ${todos}" class="list-group-item" >
+                        <input  type="checkbox" th:checked="${var.finished}" class="form-control" placeholder="Wach salitiha?">
+                        <span th:style="${var.finished ? 'text-decoration: line-through' : ''}" th:text="${var.task}"></span>
+                        <a class="btn btn-danger" th:href="@{'/todo/mse7Element' + '?' + 'index=' + ${iterator.index}}">Mse7</a>
+                        <a class="btn btn-warning" th:href="@{'/todo/mse7ElementById/' + ${var.id}}">Mse7 By ID</a>
+                        <a class="btn btn-warning" th:href="@{'/todo/mse7MnBaseDonnees/' + ${var.id}}">Mse7 mn BD </a>
+                    </li>
+
+                </ul>
+            </div>
+            <a class="btn btn-danger" th:href="@{/todo/mse7kolchi}">Mse7 Kolchi</a>
+            <a class="btn btn-danger" th:href="@{/todo/mse7kolchiMnBaseDonnees}">Mse7 Kolchi MN BD</a>
+
+
+        </div>
+    </div>
+
+</form>
+
+
+
+<div>
+
+</div>
+</body>
+</html>

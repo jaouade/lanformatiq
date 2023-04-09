@@ -1,0 +1,5 @@
+
+darori t7tarm had lprocess f spring
+business logic (le metier) khaso ykon f service
+
+Controller => Service => Repository => base de donnees
